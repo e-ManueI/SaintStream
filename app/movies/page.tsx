@@ -1,20 +1,20 @@
 import Image from "next/image";
-import Link from "next/link";
+import TransitionalLink from "../utils/transition-link";
 
-export default function Component() {
+export default function MoviesPage() {
   return (
     <div className="min-h-screen bg-black text-white">
-      <main className="p-8">
+      <main className="p-8 pt-24">
         <div className="mb-6 flex items-center justify-between">
           <h2 className="text-3xl font-bold">Popular Titles</h2>
           <div className="flex items-center space-x-4">
             <input
               type="text"
               placeholder="Search titles..."
-              className="rounded-lg bg-gray-800 px-4 py-2 text-white"
+              className="rounded-lg bg-gray-800 text-white"
             />
             <select
-              className="rounded-lg bg-gray-800 px-4 py-2 text-white"
+              className="w-full rounded-lg bg-gray-800 text-white"
               aria-label="Select movie genre"
             >
               <option value="">Genre</option>
@@ -23,7 +23,7 @@ export default function Component() {
               <option value="comedy">Comedy</option>
             </select>
             <select
-              className="rounded-lg bg-gray-800 px-4 py-2 text-white"
+              className="w-full rounded-lg bg-gray-800 text-white"
               aria-label="Select year"
             >
               <option value="">Year</option>
@@ -80,7 +80,7 @@ function MovieCard({
   genres: string[];
 }) {
   return (
-    <Link href={`/movies/${id}`} className="group">
+    <TransitionalLink href={`/movies/${id}`} className="group">
       <div className="relative aspect-video overflow-hidden rounded-lg bg-gray-800">
         <Image
           src={`/movie${id}.jpeg`}
@@ -96,6 +96,6 @@ function MovieCard({
           </p>
         </div>
       </div>
-    </Link>
+    </TransitionalLink>
   );
 }

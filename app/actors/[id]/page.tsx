@@ -1,5 +1,5 @@
+import TransitionalLink from "@/app/utils/transition-link";
 import Image from "next/image";
-import Link from "next/link";
 
 async function getActorDetails(id: string, name: string, image: string) {
   // Simulate API call
@@ -56,7 +56,7 @@ export default async function ActorDetail({
   );
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black pt-16 text-white">
       <main className="px-4 py-12 md:px-8 lg:px-12">
         <div className="mx-auto max-w-6xl">
           <div className="flex flex-col gap-8 md:flex-row">
@@ -79,7 +79,7 @@ export default async function ActorDetail({
                 <h2 className="mb-4 text-2xl font-semibold">Filmography</h2>
                 <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
                   {actor.filmography.map((movie) => (
-                    <Link
+                    <TransitionalLink
                       href={`/movies/${movie.id}`}
                       key={movie.id}
                       className="group"
@@ -94,7 +94,7 @@ export default async function ActorDetail({
                       </div>
                       <h3 className="text-sm font-semibold">{movie.title}</h3>
                       <p className="text-xs text-gray-400">{movie.year}</p>
-                    </Link>
+                    </TransitionalLink>
                   ))}
                 </div>
               </div>

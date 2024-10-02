@@ -1,13 +1,13 @@
 import { Instagram, Facebook, Twitter, Linkedin } from "lucide-react";
-import Link from "next/link";
 import { siteConfig } from "../config/site";
+import TransitionalLink from "../utils/transition-link";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-black text-white py-8 px-4">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start">
+    <footer className="bg-black px-4 py-8 text-white">
+      <div className="mx-auto flex max-w-7xl flex-col items-start justify-between md:flex-row">
         <div className="mb-6 md:mb-0">
-          <h3 className="text-3xl font-bold mb-2">
+          <h3 className="mb-2 text-3xl font-bold">
             Our platform is trusted
             <br />
             by millions & features
@@ -17,64 +17,73 @@ const Footer: React.FC = () => {
             all around the world.
           </h3>
         </div>
-        <nav className="flex space-x-4 text-sm mb-6 md:mb-0">
-          <Link href="/" className="text-gray-400 hover:text-white">
+        <nav className="mb-6 flex space-x-4 text-sm md:mb-0">
+          <TransitionalLink href="/" className="text-gray-400 hover:text-white">
             Home
-          </Link>
+          </TransitionalLink>
           <span className="text-gray-400">/</span>
-          <Link href="/discover" className="text-gray-400 hover:text-white">
+          <TransitionalLink
+            href="/discover"
+            className="text-gray-400 hover:text-white"
+          >
             Discover
-          </Link>
+          </TransitionalLink>
           <span className="text-gray-400">/</span>
-          <Link href="/influence" className="text-gray-400 hover:text-white">
+          <TransitionalLink
+            href="/influence"
+            className="text-gray-400 hover:text-white"
+          >
             Influence
-          </Link>
+          </TransitionalLink>
           <span className="text-gray-400">/</span>
-          <Link href="/release" className="text-gray-400 hover:text-white">
+          <TransitionalLink
+            href="/release"
+            className="text-gray-400 hover:text-white"
+          >
             Release
-          </Link>
+          </TransitionalLink>
         </nav>
       </div>
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center mt-8">
-        <div className="flex space-x-4 text-xs text-gray-400 mb-4 md:mb-0">
-          <Link href="/privacy" className="hover:text-white">
+      <div className="mx-auto mt-8 flex max-w-7xl flex-col items-center justify-between md:flex-row">
+        <div className="mb-4 flex space-x-4 text-xs text-gray-400 md:mb-0">
+          <TransitionalLink href="/privacy" className="hover:text-white">
             Privacy policy
-          </Link>
-          <Link href="/terms" className="hover:text-white">
+          </TransitionalLink>
+          <TransitionalLink href="/terms" className="hover:text-white">
             Term of service
-          </Link>
-          <Link href="/language" className="hover:text-white">
+          </TransitionalLink>
+          <TransitionalLink href="/language" className="hover:text-white">
             Language
-          </Link>
+          </TransitionalLink>
         </div>
         <div className="flex space-x-4">
-          <Link
+          <TransitionalLink
             href={siteConfig.links.instagram}
             className="text-white hover:text-gray-300"
           >
-            <Instagram className="w-6 h-6" />
-          </Link>
-          <Link
+            <Instagram className="h-6 w-6" />
+          </TransitionalLink>
+          <TransitionalLink
             href={siteConfig.links.facebook}
             className="text-white hover:text-gray-300"
           >
-            <Facebook className="w-6 h-6" />
-          </Link>
-          <Link
+            <Facebook className="h-6 w-6" />
+          </TransitionalLink>
+          <TransitionalLink
             href={siteConfig.links.twitter}
             className="text-white hover:text-gray-300"
           >
-            <Twitter className="w-6 h-6" />
-          </Link>
-          <Link
+            <Twitter className="h-6 w-6" />
+          </TransitionalLink>
+          <TransitionalLink
             href={siteConfig.links.linkedin}
             className="text-white hover:text-gray-300"
           >
-            <Linkedin className="w-6 h-6" />
-          </Link>
+            <Linkedin className="h-6 w-6" />
+          </TransitionalLink>
         </div>
       </div>
-      <div className="max-w-7xl mx-auto text-right mt-4 text-gray-400 text-xs">
+      <div className="mx-auto mt-4 max-w-7xl text-right text-xs text-gray-400">
         © 2024.
       </div>
     </footer>

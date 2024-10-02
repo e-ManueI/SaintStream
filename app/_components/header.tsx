@@ -1,47 +1,59 @@
 import { Search } from "lucide-react";
-import Link from "next/link";
+import TransitionalLink from "../utils/transition-link";
 
 const Header = () => {
   return (
-    <header className="container mx-auto inset-x-0 absolute top-0 z-[5000] w-screen">
-      <div className="flex items-center px-4 py-4 justify-between">
+    <header className="container absolute inset-x-0 top-0 z-[5000] mx-auto w-screen">
+      <div className="flex items-center justify-between py-4">
         {/* Logo and Title */}
-        <Link href="/" className="flex items-center space-x-4">
-          <div className="w-8 h-8 bg-green-500 rounded-md flex items-center justify-center text-black font-bold">
+        <TransitionalLink href="/" className="flex items-center space-x-4">
+          <div className="flex h-8 w-8 items-center justify-center rounded-md bg-green-500 font-bold text-black">
             SS
           </div>
           <span className="text-xl font-semibold text-white">SaintStream</span>
-        </Link>
+        </TransitionalLink>
 
         {/* Navigation Links */}
-        <nav className="hidden md:flex space-x-6 font-sans text-lg">
-          <Link
+        <nav className="hidden space-x-6 font-sans text-lg md:flex">
+          <TransitionalLink
             href="/"
-            className="text-white font-semibold hover:text-green-500"
+            className="font-semibold text-white hover:text-green-500"
           >
             Home
-          </Link>
-          <Link href="/movies" className="text-gray-200 hover:text-green-500">
+          </TransitionalLink>
+          <TransitionalLink
+            href="/movies"
+            className="text-gray-200 hover:text-green-500"
+          >
             Discover
-          </Link>
-          <Link href="/movies" className="text-gray-200 hover:text-green-500">
+          </TransitionalLink>
+          <TransitionalLink
+            href="/movies"
+            className="text-gray-200 hover:text-green-500"
+          >
             Movie Release
-          </Link>
-          <Link href="#" className="text-gray-200 hover:text-green-500">
+          </TransitionalLink>
+          <TransitionalLink
+            href="#"
+            className="text-gray-200 hover:text-green-500"
+          >
             Forum
-          </Link>
-          <Link href="#" className="text-gray-200 hover:text-green-500">
+          </TransitionalLink>
+          <TransitionalLink
+            href="#"
+            className="text-gray-200 hover:text-green-500"
+          >
             About
-          </Link>
+          </TransitionalLink>
         </nav>
 
         {/* Search and Auth Buttons */}
         <div className="flex items-center space-x-4">
-          <Search className="text-gray-400 hover:text-green-500 cursor-pointer" />
-          <button className="px-4 py-2 text-gray-300 border border-gray-600 rounded-md hover:bg-gray-800">
+          <Search className="cursor-pointer text-gray-400 hover:text-green-500" />
+          <button className="rounded-md border border-gray-600 px-4 py-2 text-gray-300 hover:bg-gray-800">
             Sign up
           </button>
-          <button className="px-4 py-2 bg-green-500 text-black rounded-md hover:bg-green-600">
+          <button className="rounded-md bg-green-500 px-4 py-2 text-black hover:bg-green-600">
             Login
           </button>
         </div>
