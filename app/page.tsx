@@ -1,7 +1,7 @@
-import EntertainmentSection from "./components/entertainment";
-import HeroSection from "./components/hero-section";
-import JustReleased from "./components/just-released";
-import StreamingServices from "./components/streaming-services";
+import EntertainmentSection from "./_components/entertainment";
+import HeroSection from "./_components/hero-section";
+import JustReleased from "./_components/just-released";
+import StreamingServices from "./_components/streaming-services";
 
 export default function Home() {
   return (
