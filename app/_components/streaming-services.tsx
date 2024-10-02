@@ -1,6 +1,4 @@
 "use client";
-import Image from "next/image";
-import { useRef, useEffect } from "react";
 import ParallaxLogos from "./parallax";
 
 const StreamingServices: React.FC = () => {
@@ -22,7 +20,7 @@ const StreamingServices: React.FC = () => {
   ];
 
   return (
-    <section className="py-8 overflow-hidden ">
+    <section className="overflow-hidden py-8">
       <div className="flex justify-center">
         <div className="relative w-full">
           <div className="flex whitespace-nowrap">

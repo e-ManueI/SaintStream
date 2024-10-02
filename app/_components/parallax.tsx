@@ -11,7 +11,18 @@ import {
   useAnimationFrame,
 } from "framer-motion";
 
-function ParallaxLogos({ logos, baseVelocity = 100 }) {
+interface Logo {
+  name: string;
+  src: string;
+}
+
+function ParallaxLogos({
+  logos,
+  baseVelocity = 100,
+}: {
+  logos: Logo[]; // Changed from Logo to Logo[]
+  baseVelocity: number;
+}) {
   const baseX = useMotionValue(0);
   const { scrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
@@ -51,31 +62,31 @@ function ParallaxLogos({ logos, baseVelocity = 100 }) {
   return (
     <div className="flex flex-nowrap overflow-hidden whitespace-nowrap leading-loose tracking-tight">
       <motion.div className="flex flex-nowrap whitespace-nowrap" style={{ x }}>
-        {logos.map((logo, index) => (
+        {logos.map((logo: Logo, index: number) => (
           <div
             key={`${logo.name}-${index}`}
-            className="flex items-center justify-center w-32 h-20 flex-shrink-0"
+            className="flex h-20 w-32 flex-shrink-0 items-center justify-center"
           >
             <Image
               src={logo.src}
               alt={logo.name}
               width={100}
               height={50}
-              className="opacity-70 hover:opacity-100 transition-opacity object-contain"
+              className="object-contain opacity-70 transition-opacity hover:opacity-100"
             />
           </div>
         ))}
-        {logos.map((logo, index) => (
+        {logos.map((logo: Logo, index: number) => (
           <div
             key={`${logo.name}-${index}-duplicate`}
-            className="flex items-center justify-center w-32 h-20 flex-shrink-0"
+            className="flex h-20 w-32 flex-shrink-0 items-center justify-center"
           >
             <Image
               src={logo.src}
               alt={logo.name}
               width={100}
               height={50}
-              className="opacity-70 hover:opacity-100 transition-opacity object-contain"
+              className="object-contain opacity-70 transition-opacity hover:opacity-100"
             />
           </div>
         ))}
