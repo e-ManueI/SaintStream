@@ -9,24 +9,25 @@ const Header = () => {
   const [lastScrollY, setLastScrollY] = useState(0); // Tracks last scroll position
 
   // Track scroll direction and update header visibility
-  const handleScroll = () => {
-    const currentScrollY = window.scrollY;
-
-    if (currentScrollY > lastScrollY && currentScrollY > 100) {
-      // User is scrolling down and scrolled past 100px
-      setVisible(false);
-    } else {
-      // User is scrolling up or hasn't scrolled far enough
-      setVisible(true);
-    }
-
-    // Set the last scroll position to the current scroll position
-    setLastScrollY(currentScrollY);
-  };
 
   // Add scroll listener and clean up on unmount
   useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // User is scrolling down and scrolled past 100px
+        setVisible(false);
+      } else {
+        // User is scrolling up or hasn't scrolled far enough
+        setVisible(true);
+      }
+      // Set the last scroll position to the current scroll position
+      setLastScrollY(currentScrollY);
+    };
+
     window.addEventListener("scroll", handleScroll);
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };

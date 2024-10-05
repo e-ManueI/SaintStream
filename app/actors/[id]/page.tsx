@@ -2,8 +2,8 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { ACTORSDETAILS, ACTORCREDITS } from "@/app/(api)/movie";
-import MovieCard from "@/app/_components/movie-card";
+import { ACTORSDETAILS, ACTORCREDITS } from "@/app/_api/tmdb";
+import MovieCard from "@/app/_components/builders/movie-card";
 import Loading from "@/app/loading";
 import DisplayError from "@/app/_components/skeleton/error";
 import { Actors, Movie } from "@/app/utils/types";

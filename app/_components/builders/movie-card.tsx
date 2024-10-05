@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Movie } from "../utils/types";
+import { Movie } from "../../utils/types";
 
 interface MovieCardProps {
   movie: Movie;

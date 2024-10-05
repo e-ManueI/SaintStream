@@ -3,7 +3,7 @@ import TransitionalLink from "@/app/utils/transition-link";
 import { Download, Share, ThumbsUp } from "lucide-react";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
-import { MOVIESDETAILS, MOVIECREDITS } from "../../(api)/movie";
+import { MOVIESDETAILS, MOVIECREDITS } from "../../_api/tmdb";
 import { useRouter } from "next/navigation";
 import Loading from "@/app/loading";
 import { Actors, Content, Episodes } from "@/app/utils/types";
