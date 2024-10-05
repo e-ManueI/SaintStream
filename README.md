@@ -6,7 +6,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 <b>Cinemasphere</b> is a simple movie streaming application developed using <b>React.js</b> and <b>Next.js</b>, powered by the <b>TMDb API</b> for fetching movie and actor data. <br />
 The app enables users to browse movies, explore detailed information on films, and view actor profiles, all while ensuring smooth transitions between pages for a seamless user experience.
 
-![Demo view](image.png)
+![Demo view](public/image.png)
 
 ## Key Features
 
