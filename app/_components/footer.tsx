@@ -83,7 +83,7 @@ const Footer: React.FC = () => {
           </TransitionalLink>
         </div>
       </div>
-      <div className="mx-auto mt-4 max-w-7xl text-right text-xs text-gray-400">
+      <div className="mx-auto mt-4 max-w-7xl text-center text-xs text-gray-400 md:text-right">
         © 2024.
       </div>
     </footer>
