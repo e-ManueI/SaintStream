@@ -1,47 +1,49 @@
 "use client";
 import TransitionalLink from "@/app/utils/transition-link";
-import { Star, Download, Share, ThumbsUp } from "lucide-react";
+import { Download, Share, ThumbsUp } from "lucide-react";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { MOVIESDETAILS, MOVIECREDITS } from "../../(api)/movie";
 import { useRouter } from "next/navigation";
 import Loading from "@/app/loading";
+import { Actors, Content, Episodes } from "@/app/utils/types";
 
 export default function ContentDetailsPage({
   params,
 }: {
   params: { id: string };
 }) {
-  const [content, setContent] = useState<any>(null);
+  const [content, setContent] = useState<Content | null>(null);
   const [actors, setActors] = useState([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
-
-  const fetchActors = async () => {
-    try {
-      const actorResponse = await MOVIECREDITS(params.id);
-      console.log("cast results", actorResponse.data.cast);
-      setActors(actorResponse.data.cast);
-      // setActors(actorResponse.data.results);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching actors:", error);
-    }
-  };
 
   useEffect(() => {
     const getContentDetails = async () => {
       try {
         const details = await MOVIESDETAILS(params.id);
         console.log("🚀 ~ getContentDetails ~ details:", details);
-        setContent(details.data ? details.data : details); // Adjust based on API response structure
+        setContent(details.data ? details.data : details);
       } catch (error) {
         console.error("Error fetching movie details:", error);
       }
     };
+
+    const fetchActors = async () => {
+      try {
+        const actorResponse = await MOVIECREDITS(params.id);
+        console.log("cast results", actorResponse.data.cast);
+        setActors(actorResponse.data.cast);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching actors:", error);
+      }
+    };
+
     fetchActors();
     getContentDetails();
   }, [params.id]);
+
   if (!content) return <Loading />;
   // Function to handle actor click and navigate to the actor's page
   const handleActorClick = (id: string, name: string, image: string) => {
@@ -117,7 +119,7 @@ export default function ContentDetailsPage({
           <section className="mb-8">
             <h2 className="mb-4 text-2xl font-bold">Top Cast</h2>
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7">
-              {actors.map((actor) => (
+              {actors.map((actor: Actors) => (
                 <TransitionalLink
                   href={`/actors/${actor.id}?name=${encodeURIComponent(actor.name)}&image=${encodeURIComponent(actor.profile_path)}`}
                   key={actor.id}
@@ -151,7 +153,7 @@ export default function ContentDetailsPage({
             <section className="mb-8">
               <h2 className="mb-4 text-2xl font-bold">Episodes</h2>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-                {content.episodes.map((episode) => (
+                {content.episodes.map((episode: Episodes) => (
                   <div
                     key={episode.id}
                     className="overflow-hidden rounded-lg bg-gray-900"

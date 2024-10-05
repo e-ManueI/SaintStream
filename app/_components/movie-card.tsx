@@ -1,13 +1,8 @@
 import Image from "next/image";
+import { Movie } from "../utils/types";
 
 interface MovieCardProps {
-  movie: {
-    id: number;
-    title: string;
-    poster_path: string;
-    vote_average: number;
-    genres: string;
-  };
+  movie: Movie;
   onClick: (id: number | string) => void;
 }
 
