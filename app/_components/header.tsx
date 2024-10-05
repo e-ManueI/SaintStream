@@ -3,7 +3,7 @@ import TransitionalLink from "../utils/transition-link";
 
 const Header = () => {
   return (
-    <header className="container absolute inset-x-0 top-0 z-[5000] mx-auto w-screen">
+    <header className="container absolute inset-x-0 top-0 z-[5000] mx-auto w-screen px-4 md:px-0">
       <div className="flex items-center justify-between py-4">
         {/* Logo and Title */}
         <TransitionalLink href="/" className="flex items-center space-x-4">
@@ -22,13 +22,13 @@ const Header = () => {
             Home
           </TransitionalLink>
           <TransitionalLink
-            href="/movies"
+            href="/"
             className="text-gray-200 hover:text-green-500"
           >
             Discover
           </TransitionalLink>
           <TransitionalLink
-            href="/movies"
+            href="/"
             className="text-gray-200 hover:text-green-500"
           >
             Movie Release
@@ -49,7 +49,7 @@ const Header = () => {
 
         {/* Search and Auth Buttons */}
         <div className="flex items-center space-x-4">
-          <Search className="cursor-pointer text-gray-400 hover:text-green-500" />
+          <Search className="hidden cursor-pointer text-gray-400 hover:text-green-500 md:block" />
           <button className="rounded-md border border-gray-600 px-4 py-2 text-gray-300 hover:bg-gray-800">
             Sign up
           </button>

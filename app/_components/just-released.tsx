@@ -1,50 +1,16 @@
 "use client";
-import Image from "next/image";
-import { useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
-interface Movie {
-  title: string;
-  rating: number;
-  genre: string;
-  image: string;
-}
+import { JUSTRELEASED } from "../(api)/movie";
+import { useRouter } from "next/navigation";
+import MovieCard from "./movie-card";
+import MovieCardSkeleton from "./skeleton/movie-card";
 
 const JustReleased: React.FC = () => {
-  const movies: Movie[] = [
-    {
-      title: "Enola Holmes 2",
-      rating: 4.8,
-      genre: "Action • Movie",
-      image: "/movie1.jpeg",
-    },
-    {
-      title: "Satan's Slaves",
-      rating: 4.4,
-      genre: "Horror • Movie",
-      image: "/movie2.jpeg",
-    },
-    {
-      title: "The Flash",
-      rating: 4.6,
-      genre: "Mystery • Movie",
-      image: "/movie3.jpeg",
-    },
-    {
-      title: "Weak Hero",
-      rating: 4.6,
-      genre: "Action • Drama",
-      image: "/movie4.jpeg",
-    },
-    {
-      title: "Wonder Woman",
-      rating: 4.4,
-      genre: "Action • Movie",
-      image: "/movie5.jpeg",
-    },
-  ];
-
+  const router = useRouter();
   const scrollRef = useRef<HTMLDivElement | null>(null);
+  const [movies, setMovies] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const handleScroll = (scrollOffset: number) => {
     if (scrollRef.current) {
@@ -52,39 +18,71 @@ const JustReleased: React.FC = () => {
     }
   };
 
+  const getGenreById = (id: number): string => {
+    const genres: { [key: number]: string } = {
+      12: "Adventure",
+      14: "Fantasy",
+      16: "Animation",
+      18: "Drama",
+      27: "Horror",
+      28: "Action",
+      35: "Comedy",
+      53: "Thriller",
+      80: "Crime",
+      878: "Science Fiction",
+      10751: "Family",
+      10749: "Romance",
+      10402: "Music",
+      9648: "Mystery",
+      37: "Western",
+      10770: "TV Movie",
+      10752: "War",
+    };
+    return genres[id] || "Others";
+  };
+
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const movieResponse = await JUSTRELEASED();
+        const transformedMovies = movieResponse.data.results.map(
+          (movie: any) => ({
+            ...movie,
+            genres: movie.genre_ids.map(getGenreById).join(" • "),
+          }),
+        );
+        setMovies(transformedMovies);
+      } catch (error) {
+        console.error("Error fetching movies:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchMovies();
+  }, []);
+
+  const handleMovieClick = (id: string | number) => {
+    router.push(`/movies/${id}`);
+  };
+
   return (
-    <section className="group/chevron relative px-4 py-8">
+    <section className="group/chevron relative min-h-[30vh] px-4 py-8">
       <h2 className="mb-4 text-2xl font-semibold">Just Released</h2>
       <div className="relative">
         <div ref={scrollRef} className="flex space-x-8 overflow-x-hidden">
-          {movies.map((movie, index) => (
-            <div
-              key={`${movie.title}-${index}`}
-              className="group relative h-96 w-60 flex-shrink-0" // fixed height (h-96) and width (w-60)
-            >
-              <div className="h-full w-full">
-                <Image
-                  src={movie.image}
-                  alt={movie.title}
-                  width={240}
-                  height={360}
-                  quality={100}
-                  className="h-full w-full rounded-lg object-cover" // Ensure uniform size
+          {loading
+            ? Array(6)
+                .fill(0)
+                .map((_, index) => <MovieCardSkeleton key={index} />)
+            : movies.map((movie, index) => (
+                <MovieCard
+                  key={`${movie.id}-${index}`}
+                  movie={movie}
+                  onClick={() => handleMovieClick(movie.id)}
                 />
-              </div>
-              <div className="absolute inset-0 flex flex-col justify-end bg-black bg-opacity-50 p-4 opacity-0 transition-opacity group-hover:opacity-100">
-                <h3 className="text-lg font-semibold">{movie.title}</h3>
-                <div className="flex items-center">
-                  <span className="mr-1 text-yellow-400">★</span>
-                  <span>{movie.rating}</span>
-                </div>
-                <p className="text-sm text-gray-300">{movie.genre}</p>
-              </div>
-            </div>
-          ))}
+              ))}
         </div>
 
-        {/* Left Scroll Button */}
         <button
           onClick={() => handleScroll(-300)}
           className="absolute left-0 top-1/2 -translate-y-1/2 transform rounded-full bg-black bg-opacity-50 p-2 text-white opacity-0 transition-opacity hover:bg-opacity-75 group-hover/chevron:opacity-100"
@@ -93,7 +91,6 @@ const JustReleased: React.FC = () => {
           <ChevronLeft className="h-6 w-6" />
         </button>
 
-        {/* Right Scroll Button */}
         <button
           onClick={() => handleScroll(300)}
           className="absolute right-0 top-1/2 -translate-y-1/2 transform rounded-full bg-black bg-opacity-50 p-2 text-white opacity-0 transition-opacity hover:bg-opacity-75 group-hover/chevron:opacity-100"
