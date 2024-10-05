@@ -1,5 +1,5 @@
 "use client";
-import ParallaxLogos from "./parallax";
+import ParallaxLogos from "./builders/parallax";
 
 const StreamingServices: React.FC = () => {
   const logos = [

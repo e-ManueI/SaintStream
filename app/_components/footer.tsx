@@ -1,5 +1,5 @@
 import { Instagram, Facebook, Twitter, Linkedin } from "lucide-react";
-import { siteConfig } from "../config/site";
+import { siteConfig } from "../_config/site";
 import TransitionalLink from "../utils/transition-link";
 
 const Footer: React.FC = () => {

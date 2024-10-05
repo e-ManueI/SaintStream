@@ -40,6 +40,13 @@ export const SERIES = () => {
     method: "GET",
   });
 };
+
+export const SERIESDETAILS = (series_id: string) => {
+  return api({
+    url: `/tv/${series_id}?api_key=${apiKey}&language=en-US`,
+  });
+};
+
 export const KSERIES = () => {
   return api({
     url: `/discover/tv?api_key=${apiKey}&language=en-US&with_original_language=ko`,

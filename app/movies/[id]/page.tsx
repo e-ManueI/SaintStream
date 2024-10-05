@@ -3,7 +3,7 @@ import TransitionalLink from "@/app/utils/transition-link";
 import { Download, Share, ThumbsUp } from "lucide-react";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
-import { MOVIESDETAILS, MOVIECREDITS } from "../../(api)/movie";
+import { MOVIESDETAILS, MOVIECREDITS } from "../../_api/tmdb";
 import { useRouter } from "next/navigation";
 import Loading from "@/app/loading";
 import { Actors, Content, Episodes } from "@/app/utils/types";
@@ -59,12 +59,18 @@ export default function ContentDetailsPage({
     <div className="min-h-screen bg-black text-white">
       <main>
         <div className="relative h-[50vh] bg-gray-800">
-          <Image
-            src={`https://image.tmdb.org/t/p/w500${content.poster_path}`}
-            alt={content.title}
-            objectFit="cover"
-            fill
-          />
+          {content.poster_path ? (
+            <Image
+              src={`https://image.tmdb.org/t/p/w500${content.poster_path}`}
+              alt={content.title}
+              objectFit="cover"
+              fill
+            />
+          ) : (
+            <div className="flex h-[50vh] items-center justify-center bg-gray-900">
+              {content.title}
+            </div>
+          )}
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent">
             <div className="container mx-auto px-4 pb-8 md:px-0">
               {content.title && (
@@ -128,22 +134,30 @@ export default function ContentDetailsPage({
                   }
                   className="flex flex-col items-center space-y-4"
                 >
-                  <div className="h-32 w-32 space-y-2 overflow-hidden rounded-full bg-center">
-                    <Image
-                      src={`https://image.tmdb.org/t/p/w500${actor.profile_path}`}
-                      alt={actor.name}
-                      width={200}
-                      height={200}
-                      className="w-full rounded-full object-cover transition-transform duration-300 hover:scale-105"
-                    />
+                  <div className="flex h-32 w-32 items-center justify-center space-y-2 overflow-hidden rounded-full bg-gray-800 bg-center hover:bg-gray-900">
+                    {actor.profile_path ? (
+                      <Image
+                        src={`https://image.tmdb.org/t/p/w500${actor.profile_path}`}
+                        alt={actor.name}
+                        width={200}
+                        height={200}
+                        className="h-full w-full rounded-full object-cover transition-transform duration-300 hover:scale-105"
+                      />
+                    ) : (
+                      <span className="text-center text-sm text-gray-500">
+                        {actor.name}
+                      </span>
+                    )}
                   </div>
 
-                  <p className="text-center text-sm font-semibold">
-                    {actor.name}
-                  </p>
-                  <p className="text-center text-xs text-gray-400">
-                    {actor.character}
-                  </p>
+                  <div className="space-y-1">
+                    <p className="text-center text-sm font-semibold">
+                      {actor.name}
+                    </p>
+                    <p className="text-center text-xs text-gray-400">
+                      {actor.character}
+                    </p>
+                  </div>
                 </TransitionalLink>
               ))}
             </div>
@@ -180,39 +194,6 @@ export default function ContentDetailsPage({
               </div>
             </section>
           )}
-
-          {/* <section className="mt-12">
-            <h2 className="mb-4 text-2xl font-bold">Similar Movies for you</h2>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-              {content.similarContent &&
-                content.similarContent.map((item) => (
-                  <TransitionalLink
-                    href={`/movies/${item.id}`}
-                    key={item.id}
-                    className="group"
-                  >
-                    <div className="relative aspect-video overflow-hidden rounded-lg bg-gray-800">
-                      <Image
-                        src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
-                        alt={item.title}
-                        layout="fill"
-                        objectFit="cover"
-                        className="transition-transform group-hover:scale-105"
-                      />
-                    </div>
-                    <div className="mt-2">
-                      <h3 className="text-lg font-semibold">{item.title}</h3>
-                      <div className="flex items-center text-sm text-gray-400">
-                        <Star className="mr-1 h-4 w-4 text-yellow-400" />
-                        <span>{item.vote_average}</span>
-                        <span className="mx-1">•</span>
-                        <span>{item.release_date.split("-")[0]}</span>
-                      </div>
-                    </div>
-                  </TransitionalLink>
-                ))}
-            </div>
-          </section> */}
         </div>
       </main>
     </div>

@@ -1,9 +1,9 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { JUSTRELEASED } from "../(api)/movie";
+import { JUSTRELEASED } from "../_api/tmdb";
 import { useRouter } from "next/navigation";
-import MovieCard from "./movie-card";
+import MovieCard from "./builders/movie-card";
 import MovieCardSkeleton from "./skeleton/movie-card";
 import { Movie } from "../utils/types";
 

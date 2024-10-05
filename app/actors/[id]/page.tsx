@@ -2,8 +2,8 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { ACTORSDETAILS, ACTORCREDITS } from "@/app/(api)/movie";
-import MovieCard from "@/app/_components/movie-card";
+import { ACTORSDETAILS, ACTORCREDITS } from "@/app/_api/tmdb";
+import MovieCard from "@/app/_components/builders/movie-card";
 import Loading from "@/app/loading";
 import DisplayError from "@/app/_components/skeleton/error";
 import { Actors, Movie } from "@/app/utils/types";
@@ -50,21 +50,27 @@ export default function ActorDetail({ params }: { params: { id: string } }) {
   return (
     <div className="min-h-screen bg-black pt-16 text-white">
       <main className="px-4 py-12 md:px-8 lg:px-12">
-        <div className="mx-auto max-w-6xl">
+        <div className="mx-auto max-w-7xl">
           {actor && movieCredits.length > 0 && (
-            <div className="flex flex-col gap-8 md:flex-row">
+            <div className="grid grid-cols-1 gap-8 md:grid md:grid-cols-3">
               {/* Actor Image */}
-              <div className="md:w-1/3">
-                <Image
-                  src={`https://image.tmdb.org/t/p/w500${actor.profile_path}`}
-                  alt={actor.name}
-                  width={400}
-                  height={600}
-                  className="rounded-lg object-cover shadow-lg"
-                />
+              <div className="top-20 h-min max-h-full w-[100%] grow-0 overflow-hidden md:sticky md:col-span-1">
+                {actor.profile_path ? (
+                  <Image
+                    src={`https://image.tmdb.org/t/p/w500${actor.profile_path}`}
+                    alt={actor.name}
+                    width={400}
+                    height={600}
+                    className="rounded-lg object-cover shadow-lg"
+                  />
+                ) : (
+                  <div className="flex h-[600px] w-[400px] items-center justify-center rounded-lg bg-gray-800 text-center text-gray-500 shadow-lg hover:bg-gray-900">
+                    <span className="text-xl">{actor.name}</span>
+                  </div>
+                )}
               </div>
               {/* Actor Details */}
-              <div className="md:w-2/3">
+              <div className="grow-1 flex flex-col gap-y-6 md:col-span-2">
                 <h1 className="mb-4 text-4xl font-bold">{actor.name}</h1>
                 <h1 className="mb-4 text-gray-400">
                   Popularity: {actor.popularity}

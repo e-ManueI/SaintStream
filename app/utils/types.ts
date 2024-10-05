@@ -62,3 +62,7 @@ export interface Content {
   genres?: Genre[];
   episodes?: Episodes[];
 }
+
+export interface MetadataProps {
+  params: { id: string };
+}
