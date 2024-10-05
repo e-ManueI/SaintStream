@@ -59,12 +59,18 @@ export default function ContentDetailsPage({
     <div className="min-h-screen bg-black text-white">
       <main>
         <div className="relative h-[50vh] bg-gray-800">
-          <Image
-            src={`https://image.tmdb.org/t/p/w500${content.poster_path}`}
-            alt={content.title}
-            objectFit="cover"
-            fill
-          />
+          {content.poster_path ? (
+            <Image
+              src={`https://image.tmdb.org/t/p/w500${content.poster_path}`}
+              alt={content.title}
+              objectFit="cover"
+              fill
+            />
+          ) : (
+            <div className="flex h-[50vh] items-center justify-center bg-gray-900">
+              {content.title}
+            </div>
+          )}
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent">
             <div className="container mx-auto px-4 pb-8 md:px-0">
               {content.title && (
