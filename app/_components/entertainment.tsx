@@ -6,17 +6,8 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Loading from "../loading";
 import DisplayError from "./skeleton/error";
+import { Media, Section } from "../utils/types";
 
-interface Movie {
-  id: string;
-  title: string;
-  rating: number;
-  genre: string;
-}
-interface Section {
-  title: string;
-  items: Movie[];
-}
 const EntertainmentSection = () => {
   const router = useRouter();
   const [sections, setSections] = useState<Section[]>([]);
@@ -31,7 +22,7 @@ const EntertainmentSection = () => {
         setLoading(true);
         const [moviesResponse, seriesResponse, kseriesResponse] =
           await Promise.all([MOVIES(), SERIES(), KSERIES()]);
-        const movies = moviesResponse.data.results.map((movie: any) => ({
+        const movies = moviesResponse.data.results.map((movie: Media) => ({
           id: movie.id,
           title: movie.title,
           rating: movie.vote_average,
@@ -40,7 +31,7 @@ const EntertainmentSection = () => {
             .join(" • "),
           poster_path: movie.poster_path,
         }));
-        const series = seriesResponse.data.results.map((serie: any) => ({
+        const series = seriesResponse.data.results.map((serie: Media) => ({
           id: serie.id,
           title: serie.name,
           rating: serie.vote_average,
@@ -49,15 +40,17 @@ const EntertainmentSection = () => {
             .join(" • "),
           poster_path: serie.poster_path,
         }));
-        const koreanSeries = kseriesResponse.data.results.map((serie: any) => ({
-          id: serie.id,
-          title: serie.name,
-          rating: serie.vote_average,
-          genre: serie.genre_ids
-            .map((id: number) => getGenreById(id))
-            .join(" • "),
-          poster_path: serie.poster_path,
-        }));
+        const koreanSeries = kseriesResponse.data.results.map(
+          (serie: Media) => ({
+            id: serie.id,
+            title: serie.name,
+            rating: serie.vote_average,
+            genre: serie.genre_ids
+              .map((id: number) => getGenreById(id))
+              .join(" • "),
+            poster_path: serie.poster_path,
+          }),
+        );
         setSections([
           { title: "Movies", items: movies },
           { title: "Popular Series", items: series },

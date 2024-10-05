@@ -5,11 +5,12 @@ import { JUSTRELEASED } from "../(api)/movie";
 import { useRouter } from "next/navigation";
 import MovieCard from "./movie-card";
 import MovieCardSkeleton from "./skeleton/movie-card";
+import { Movie } from "../utils/types";
 
 const JustReleased: React.FC = () => {
   const router = useRouter();
   const scrollRef = useRef<HTMLDivElement | null>(null);
-  const [movies, setMovies] = useState<any[]>([]);
+  const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   const handleScroll = (scrollOffset: number) => {
@@ -46,9 +47,9 @@ const JustReleased: React.FC = () => {
       try {
         const movieResponse = await JUSTRELEASED();
         const transformedMovies = movieResponse.data.results.map(
-          (movie: any) => ({
+          (movie: Movie) => ({
             ...movie,
-            genres: movie.genre_ids.map(getGenreById).join(" • "),
+            genres: movie.genre_ids?.map(getGenreById).join(" • "),
           }),
         );
         setMovies(transformedMovies);

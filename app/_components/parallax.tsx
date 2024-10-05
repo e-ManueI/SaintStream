@@ -20,7 +20,7 @@ function ParallaxLogos({
   logos,
   baseVelocity = 100,
 }: {
-  logos: Logo[]; // Changed from Logo to Logo[]
+  logos: Logo[];
   baseVelocity: number;
 }) {
   const baseX = useMotionValue(0);
